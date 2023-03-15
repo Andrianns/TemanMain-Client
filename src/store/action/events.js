@@ -1,8 +1,10 @@
-import axios from "axios";
-import { fetch_detail, fetch_event, loading_set } from "./actionType";
+import axios from 'axios';
+import { fetch_detail, fetch_event, loading_set } from './actionType';
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = 'https://temanmain-orchestrator-production.up.railway.app';
 
+// const baseUrl = 'http://localhost:4000';
+// https://temanmain-orchestrator-production.up.railway.app/events
 export const getEvent = function (payload) {
   return {
     type: fetch_event,
@@ -30,13 +32,12 @@ export const fetchEvent = function () {
     return axios
       .get(`${baseUrl}/events`, {
         headers: {
-          access_token:
-            localStorage.access_token        
-          },
+          access_token: localStorage.access_token,
+        },
       })
       .then(({ data }) => {
         dispatch(getEvent(data));
-return data
+        return data;
       });
 
     // .finally(() => dispatch(loadingSet(false)));
@@ -49,8 +50,7 @@ export const detailEvent = function (id) {
     return axios
       .get(`${baseUrl}/events/${id}`, {
         headers: {
-          access_token:
-            localStorage.access_token
+          access_token: localStorage.access_token,
         },
       })
       .then(({ data }) => {
@@ -60,8 +60,8 @@ export const detailEvent = function (id) {
   };
 };
 
-export const getLocation = (loc) => (dispatch) =>{
+export const getLocation = (loc) => (dispatch) => {
   return axios.get(
     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc},ID/2023-07-04?key=VQKDY363J7W3FXYM3KFRER4RW`
-  )
-}
+  );
+};

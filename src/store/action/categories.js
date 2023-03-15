@@ -1,8 +1,8 @@
-import axios from "axios";
-import { fetch_category } from "./actionType";
-import { loadingSet } from "./events";
+import axios from 'axios';
+import { fetch_category } from './actionType';
+import { loadingSet } from './events';
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = 'https://temanmain-orchestrator-production.up.railway.app';
 
 export const getCategory = function (payload) {
   return {

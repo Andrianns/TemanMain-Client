@@ -1,6 +1,6 @@
-import axios from "axios";
-import { loadingSet } from "./events";
-const baseUrl = "http://localhost:4000";
+import axios from 'axios';
+import { loadingSet } from './events';
+const baseUrl = 'https://temanmain-orchestrator-production.up.railway.app';
 
 export const addInvitation = function (data) {
   return function (dispatch) {
@@ -47,7 +47,7 @@ export const acceptInvitationFromStore = function (id) {
         {},
         {
           headers: {
-            access_token: localStorage.getItem("access_token"),
+            access_token: localStorage.getItem('access_token'),
           },
         }
       )
@@ -65,7 +65,7 @@ export const sendInvitation = function (eventId, id) {
         {},
         {
           headers: {
-            access_token: localStorage.getItem("access_token"),
+            access_token: localStorage.getItem('access_token'),
           },
         }
       )

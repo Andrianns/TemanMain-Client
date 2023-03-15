@@ -1,9 +1,9 @@
-import axios from "axios";
-import { fetch_magnets, detail_magnet, token_agora } from "./actionType";
-import { fetchEvent, loadingSet } from "./events";
-const Swal = require("sweetalert2");
+import axios from 'axios';
+import { fetch_magnets, detail_magnet, token_agora } from './actionType';
+import { fetchEvent, loadingSet } from './events';
+const Swal = require('sweetalert2');
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = 'https://temanmain-orchestrator-production.up.railway.app';
 
 export const getMagnets = function (payload) {
   return {
@@ -80,7 +80,7 @@ export const detailMagnet = function (id) {
     return axios
       .get(`${baseUrl}/magnets/${id}`, {
         headers: {
-          access_token: localStorage.getItem("access_token"),
+          access_token: localStorage.getItem('access_token'),
         },
       })
       .then(({ data }) => {
@@ -97,7 +97,7 @@ export const fetchMagnetsByUserId = function () {
     return axios
       .get(`${baseUrl}/magnets/user`, {
         headers: {
-          access_token: localStorage.getItem("access_token"),
+          access_token: localStorage.getItem('access_token'),
         },
       })
       .then((data) => {
@@ -112,7 +112,7 @@ export const deleteMagnetFromStore = function (id) {
     return axios
       .delete(`${baseUrl}/magnets/${id}`, {
         headers: {
-          access_token: localStorage.getItem("access_token"),
+          access_token: localStorage.getItem('access_token'),
         },
       })
       .then((data) => {
@@ -163,19 +163,19 @@ export const createToken = function (data) {
   return function (dispatch) {
     const { channel } = data;
     return axios({
-      method: "POST",
+      method: 'POST',
       url: `${baseUrl}/rtctoken`,
       data: {
         isPublisher: 1,
         channel,
       },
       headers: {
-        access_token: localStorage.getItem("access_token"),
+        access_token: localStorage.getItem('access_token'),
       },
     }).then(({ data }) => {
       dispatch(postToken(data));
-      localStorage.setItem("uid", data.uid);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem('uid', data.uid);
+      localStorage.setItem('token', data.token);
       return data;
     });
     // .finally(() => dispatch(loadingSet(false)));

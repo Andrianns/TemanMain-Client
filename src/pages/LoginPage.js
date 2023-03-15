@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react';
 // import "../assets/LoginPage.css";
 // import { loginHandlerAction } from "../store/action/userAction";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 // import Swal from "sweetalert2";
 // import { useEffect } from 'react'
-import { loadingSet } from "../store/action/events";
-import { loginUser, fetchMyProfile } from "../store/action/users";
+import { loadingSet } from '../store/action/events';
+import { loginUser, fetchMyProfile } from '../store/action/users';
+import Swal from 'sweetalert2';
 
 function LoginPage() {
   const [loginInput, setLoginInput] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const navigate = useNavigate();
@@ -31,10 +32,15 @@ function LoginPage() {
         return dispatch(fetchMyProfile());
       })
       .then((data) => {
-        navigate("/");
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.error,
+        });
       })
       .finally(() => dispatch(loadingSet(false)));
   };
