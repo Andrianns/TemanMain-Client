@@ -311,7 +311,7 @@ export default function UserPage() {
                 <div className="col-md-4 h-100 mb-3 d-flex justify-content-end">
                   <img
                     className="rounded-circle"
-                    src="https://media-exp1.licdn.com/dms/image/C4E03AQEA2hq7k-y8iQ/profile-displayphoto-shrink_200_200/0/1625029397449?e=2147483647&v=beta&t=ZFojw_cAobe7-gi_NJ-gMOoheyV85ucCW6PQWwOVxbc"
+                    src={user.profilePict}
                     alt=""
                     style={{
                       width: '200px',
