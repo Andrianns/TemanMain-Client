@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import io from "socket.io-client";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const Swal = require("sweetalert2");
+const Swal = require('sweetalert2');
 
 let socket;
-const CONNECTION_PORT = "http://localhost:4000";
+const CONNECTION_PORT = 'http://localhost:4000';
 
 export default function RoomChat({ magnetDetail, magnetId }) {
   const navigate = useNavigate();
-  const [chat, setChat] = useState("");
+  const [chat, setChat] = useState('');
   const [messageList, setMessageList] = useState([]);
   const [openChat, setOpenChat] = useState(false);
   const { loggedUser } = useSelector((e) => e.users);
@@ -34,16 +34,16 @@ export default function RoomChat({ magnetDetail, magnetId }) {
       connectToRoom();
       setOpenChat(true);
     } else {
-      if (!localStorage.getItem("access_token")) {
+      if (!localStorage.getItem('access_token')) {
         Swal.fire({
-          icon: "error",
-          title: "Oops...",
+          icon: 'error',
+          title: 'Oops...',
           text: `Please login`,
-        }).then(() => navigate("/login"));
+        }).then(() => navigate('/login'));
       } else {
         Swal.fire({
-          icon: "error",
-          title: "Oops...",
+          icon: 'error',
+          title: 'Oops...',
           text: `You are not a participant of this magnet`,
         });
       }
@@ -55,20 +55,20 @@ export default function RoomChat({ magnetDetail, magnetId }) {
   }, [CONNECTION_PORT]);
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    socket.on('receive_message', (data) => {
       setMessageList([...messageList, data]);
     });
   });
   useEffect(() => {
-    socket.on("init_chat", (data) => {
+    socket.on('init_chat', (data) => {
       console.log(data);
       setMessageList(data);
     });
   }, []);
 
   const connectToRoom = () => {
-    socket.emit("join_room", {
-      roomName: "magnet" + magnetId,
+    socket.emit('join_room', {
+      roomName: 'magnet' + magnetId,
       magnetId,
       access_token: localStorage.access_token,
     });
@@ -77,7 +77,7 @@ export default function RoomChat({ magnetDetail, magnetId }) {
   const sendMessage = async (e) => {
     e.preventDefault();
     let messageContent = {
-      room: "magnet" + magnetId,
+      room: 'magnet' + magnetId,
       content: {
         UserId: loggedUser.id,
         author: `${loggedUser.firstName} ${loggedUser.lastName}`,
@@ -87,18 +87,18 @@ export default function RoomChat({ magnetDetail, magnetId }) {
       access_token: localStorage.access_token,
       magnetId: magnetId,
     };
-    await socket.emit("send_message", messageContent);
+    await socket.emit('send_message', messageContent);
     setMessageList([...messageList, messageContent.content]);
-    setChat("");
+    setChat('');
   };
   const leaveRoom = async () => {
     setOpenChat(false);
-    socket.emit("leave_room", magnetId);
+    socket.emit('leave_room', magnetId);
   };
   return (
     <>
       {openChat ? (
-        <section style={{ "background-color": "white" }}>
+        <section style={{ 'background-color': 'white' }}>
           <div class="col-12">
             <div>
               <img
@@ -127,8 +127,8 @@ export default function RoomChat({ magnetDetail, magnetId }) {
                           <div
                             class="p-3 me-3 border"
                             style={{
-                              "border-radius": "15px",
-                              "background-color": "#fbfbfb",
+                              'border-radius': '15px',
+                              'background-color': '#fbfbfb',
                             }}
                           >
                             <p class="small mb-0">
@@ -139,7 +139,7 @@ export default function RoomChat({ magnetDetail, magnetId }) {
                           <img
                             src={el.User.profilePict}
                             alt="avatar 1"
-                            style={{ width: "45px", height: "100%" }}
+                            style={{ width: '45px', height: '100%' }}
                           />
                         </div>
                       ) : (
@@ -147,14 +147,14 @@ export default function RoomChat({ magnetDetail, magnetId }) {
                           <img
                             src={el.User.profilePict}
                             alt="avatar 1"
-                            style={{ width: "45px", height: "100%" }}
+                            style={{ width: '45px', height: '100%' }}
                           />
 
                           <div
                             class="p-3 ms-3"
                             style={{
-                              "border-radius": "15px",
-                              "background-color": "rgba(57, 192, 237,.2)",
+                              'border-radius': '15px',
+                              'background-color': 'rgba(57, 192, 237,.2)',
                             }}
                           >
                             <p class="small mb-0">
@@ -214,7 +214,7 @@ export default function RoomChat({ magnetDetail, magnetId }) {
                         <input
                           type="text"
                           className="form-control"
-                          style={{ height: "50px" }}
+                          style={{ height: '50px' }}
                           placeholder="Message..."
                           onChange={(e) => {
                             setChat(e.target.value);

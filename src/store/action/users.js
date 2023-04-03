@@ -67,6 +67,18 @@ export const editMyProfile = function (data) {
 export const addUser = function (userData) {
   return function (dispatch) {
     dispatch(loadingSet(true));
-    return axios.post(`${baseUrl}/users/public/register`, userData);
+    return axios
+      .post(`${baseUrl}/users/public/register`, userData)
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.response.data.error,
+        });
+        // console.log(err, 'ERROOOOORR<<<<');
+      });
   };
 };

@@ -128,7 +128,7 @@ export default function NavBar() {
                         </Link>
                       </li>
                     )}
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <a href="#" className="nav-link text-dark">
                         <svg
                           className="bi d-block mx-auto mb-1"
@@ -139,7 +139,7 @@ export default function NavBar() {
                         </svg>
                         About
                       </a>
-                    </li>
+                    </li> */}
                     {!localStorage.getItem('access_token') && (
                       <li className="nav-item">
                         <Link to="/login" class="nav-link text-dark">
