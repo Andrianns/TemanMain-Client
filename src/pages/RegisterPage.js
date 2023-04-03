@@ -1,23 +1,26 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { loadingSet } from "../store/action/events";
-import { addUser } from "../store/action/users";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { loadingSet } from '../store/action/events';
+import { addUser } from '../store/action/users';
+import Swal from 'sweetalert2';
 
 export default function RegisterPage() {
+  const [placeholderDisabled, setPlaceholderDisabled] = useState(false);
+  const [clicked, setClicked] = useState(false);
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    role: "Visitor",
-    phoneNumber: "",
-    address: "",
-    birthdate: "",
-    profilePict: "",
-    instagramAccount: "",
-    twitterAccount: "",
-    gender: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    role: 'Visitor',
+    phoneNumber: '',
+    address: '',
+    birthdate: '',
+    profilePict: '',
+    instagramAccount: '',
+    twitterAccount: '',
+    gender: '',
   });
 
   const { loading } = useSelector((e) => e.events);
@@ -29,13 +32,18 @@ export default function RegisterPage() {
       ...userData,
       [name]: value,
     });
+    // console.log(e.target);
+    if (clicked) {
+      setPlaceholderDisabled(true);
+    }
   };
   const userSubmit = (e) => {
     e.preventDefault();
     console.log(userData);
     dispatch(addUser(userData))
       .then((data) => {
-        console.log(data);
+        Swal.fire('Success Register', data.data.message, 'success');
+        navigate('/login');
       })
       .catch((error) => {})
       .finally(() => dispatch(loadingSet(false)));
@@ -44,22 +52,23 @@ export default function RegisterPage() {
     <div id="add-food">
       <div
         className="d-flex justify-content-center"
-        style={{ marginTop: "60px" }}
+        style={{ marginTop: '60px' }}
       >
         <div className="card shadow">
-          <div className="card-body" style={{ width: "400px" }}>
+          <div className="card-body" style={{ width: '400px' }}>
             <form onSubmit={userSubmit}>
-              <h3>Register Admin</h3>
+              <h3>Register</h3>
+              <hr />
               <div className="form-floating mb-3">
                 <input
                   value={userData.firstName}
                   onChange={changeUser}
                   type="text"
                   className="form-control"
-                  placeholder="firstName"
+                  placeholder="First Name"
                   name="firstName"
                 />
-                <label htmlFor="floatingInput">firstName</label>
+                <label htmlFor="floatingInput">First Name</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -68,10 +77,10 @@ export default function RegisterPage() {
                   type="text"
                   className="form-control"
                   id="addName"
-                  placeholder="lastName"
+                  placeholder="Last Name"
                   name="lastName"
                 />
-                <label htmlFor="floatingInput">lastName</label>
+                <label htmlFor="floatingInput">Last Name</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -105,7 +114,7 @@ export default function RegisterPage() {
                   type="number"
                   className="form-control"
                   id=""
-                  placeholder="phoneNumber"
+                  placeholder="Phone Number"
                 />
                 <label htmlFor="addImage">Phone Number</label>
               </div>
@@ -116,7 +125,7 @@ export default function RegisterPage() {
                   onChange={changeUser}
                   type="text"
                   className="form-control"
-                  placeholder="address"
+                  placeholder="Address"
                 />
                 <label htmlFor="addImage">Address</label>
               </div>
@@ -127,9 +136,9 @@ export default function RegisterPage() {
                   onChange={changeUser}
                   type="date"
                   className="form-control"
-                  placeholder="birthdate"
+                  placeholder="Birthdate"
                 />
-                <label htmlFor="addImage">birthdate</label>
+                <label htmlFor="addImage">Birthdate</label>
               </div>
               <div className="form-floating mb-3">
                 <select
@@ -138,12 +147,16 @@ export default function RegisterPage() {
                   onChange={changeUser}
                   type="text"
                   className="form-control"
-                  placeholder="gender"
+                  placeholder="Gender"
+                  onClick={() => setPlaceholderDisabled(true)}
                 >
-                  <option value={"Male"}>Male</option>
-                  <option value={"Female"}>Female</option>
+                  <option value={''} disabled={placeholderDisabled}>
+                    Select Gender
+                  </option>
+                  <option value={'Male'}>Male</option>
+                  <option value={'Female'}>Female</option>
                 </select>
-                <label htmlFor="addImage">gender</label>
+                <label htmlFor="addImage">Gender</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -152,9 +165,9 @@ export default function RegisterPage() {
                   onChange={changeUser}
                   type="text"
                   className="form-control"
-                  placeholder="profilePict"
+                  placeholder="Profile Picture"
                 />
-                <label htmlFor="addImage">profilePict</label>
+                <label htmlFor="addImage">Profile Picture</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -165,7 +178,7 @@ export default function RegisterPage() {
                   className="form-control"
                   placeholder="instagramAccount"
                 />
-                <label htmlFor="addImage">instagramAccount</label>
+                <label htmlFor="addImage">Instagram</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -176,11 +189,12 @@ export default function RegisterPage() {
                   className="form-control"
                   placeholder="twitterAccount"
                 />
-                <label htmlFor="addImage">twitterAccount</label>
+                <label htmlFor="addImage">Twitter</label>
               </div>
+              <hr />
               <div className="d-flex flex-row justify-content-end">
                 <Link
-                  to={"/"}
+                  to={'/'}
                   type="button"
                   className="btn main-button btn-outline-primary"
                   id=""

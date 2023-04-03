@@ -29,6 +29,7 @@ export default function UserPage() {
   const [myMagnets, setMyMagnets] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
   const [myInvitations, setMyInvitations] = useState([]);
+  console.log(user, '<<<< USER');
 
   const [dataForm, setDataForm] = useState({
     id: '',
@@ -67,6 +68,7 @@ export default function UserPage() {
         return dispatch(fetchMyProfile());
       })
       .then((data) => {
+        console.log(data, 'useeffectttt');
         setUser(data.data);
       })
       .catch((err) => console.log(err))
@@ -311,7 +313,7 @@ export default function UserPage() {
                 <div className="col-md-4 h-100 mb-3 d-flex justify-content-end">
                   <img
                     className="rounded-circle"
-                    src={user.profilePict}
+                    src={localStorage.getItem('profilePict')}
                     alt=""
                     style={{
                       width: '200px',
@@ -322,9 +324,7 @@ export default function UserPage() {
                 </div>
                 <div className="col-md-8 d-flex justify-content-center align-items-center">
                   <div className="border-4 py-4 px-5 rounded bg-primary opacity-100 text-white">
-                    <h1>
-                      {user.firstName} {user.lastName}
-                    </h1>
+                    <h1>{localStorage.getItem('name')}</h1>
                     <p> </p>
                   </div>
                 </div>

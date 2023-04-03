@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { detailEvent, loadingSet } from "../store/action/events";
-import { getLocation } from "../store/action/events";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { detailEvent, loadingSet } from '../store/action/events';
+import { getLocation } from '../store/action/events';
+import { useParams, Outlet, useNavigate } from 'react-router-dom';
+const Swal = require('sweetalert2');
 export default function SideMenu({ toSide }) {
+  const navigate = useNavigate();
   const [mapAttr, setMapAttr] = useState();
   const dispatch = useDispatch();
   const { loading } = useSelector((e) => e.events);
@@ -23,15 +25,25 @@ export default function SideMenu({ toSide }) {
       );
     });
   }, []);
-
+  const checkAccessToken = (e) => {
+    e.preventDefault();
+    if (!localStorage.getItem('access_token')) {
+      navigate('/login');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You need Login First!',
+      });
+    }
+  };
   return (
     <>
       {loading ? (
         <h1>Loading...</h1>
       ) : (
         <div className="col-md-4">
-          <div className="position-sticky" style={{ top: "2rem" }}>
-            <div className="p-4  rounded" style={{ marginTop: "68px" }}>
+          <div className="position-sticky" style={{ top: '2rem' }}>
+            <div className="p-4  rounded" style={{ marginTop: '68px' }}>
               {/* <h5 className="">Create Magnets</h5> */}
               <div className="div">
                 <img
@@ -42,11 +54,14 @@ export default function SideMenu({ toSide }) {
               </div>
 
               <button
+                onClick={checkAccessToken}
                 type="button"
                 className="btn text-white w-100 mt-2"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                style={{ backgroundColor: "#F8C456" }}
+                data-bs-target={
+                  !localStorage.getItem('access_token') ? '' : '#exampleModal'
+                }
+                style={{ backgroundColor: '#F8C456' }}
               >
                 <h3>+ magnets</h3>
               </button>
@@ -56,21 +71,21 @@ export default function SideMenu({ toSide }) {
             <div
               className="p-4 mb-3 rounded"
               style={{
-                overflow: "hidden",
-                background: "none",
-                height: "auto",
-                width: "100%",
+                overflow: 'hidden',
+                background: 'none',
+                height: 'auto',
+                width: '100%',
               }}
             >
               <h4 className="mb-3">Maps</h4>
               <iframe
                 src={mapAttr}
                 style={{
-                  width: "100%",
-                  height: "auto",
+                  width: '100%',
+                  height: 'auto',
                   frameborder: 0,
                   border: 0,
-                  objectFit: "cover",
+                  objectFit: 'cover',
                 }}
                 frameborder="0"
                 scrolling="no"
@@ -85,7 +100,7 @@ export default function SideMenu({ toSide }) {
                     <td>Date</td>
                     <th
                       className="text-white"
-                      style={{ backgroundColor: "#23496D" }}
+                      style={{ backgroundColor: '#23496D' }}
                     >
                       {toSide.eventDate.toLocaleString().slice(0, 10)}
                     </th>
@@ -94,7 +109,7 @@ export default function SideMenu({ toSide }) {
                     <td>Duration</td>
                     <th
                       className=" text-white"
-                      style={{ backgroundColor: "#23496D" }}
+                      style={{ backgroundColor: '#23496D' }}
                     >
                       {toSide.eventDuration}
                     </th>
@@ -103,7 +118,7 @@ export default function SideMenu({ toSide }) {
                     <td>Price</td>
                     <th
                       className=" text-white"
-                      style={{ backgroundColor: "#23496D" }}
+                      style={{ backgroundColor: '#23496D' }}
                     >
                       {toSide.price}
                     </th>

@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Outlet, useNavigate } from 'react-router-dom';
 
-import { loadingSet } from "../store/action/events";
-import { detailMagnet, createToken } from "../store/action/magnets";
-import { fetchAllUsers } from "../store/action/users";
-import RoomChat from "../components/RoomChat";
-import { addRequest } from "../store/action/requests";
-const Swal = require("sweetalert2");
+import { loadingSet } from '../store/action/events';
+import { detailMagnet, createToken } from '../store/action/magnets';
+import { fetchAllUsers } from '../store/action/users';
+import RoomChat from '../components/RoomChat';
+import { addRequest } from '../store/action/requests';
+const Swal = require('sweetalert2');
 
 export default function DetailMagnets() {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export default function DetailMagnets() {
   const [requestForm, setRequestForm] = useState({
     EventId: params.id,
     MagnetId: params.magnetId,
-    requestDescription: "",
+    requestDescription: '',
   });
   const changeRequestForm = (e) => {
     const { name, value } = e.target;
@@ -80,31 +80,31 @@ export default function DetailMagnets() {
   const formRequest = (e) => {
     e.preventDefault();
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, request   it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, request   it!',
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(addRequest(requestForm))
           .then(({ data }) => {
-            console.log(data, "aaaaaaaaa");
+            console.log(data, 'aaaaaaaaa');
             Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Success send request!",
+              position: 'top-end',
+              icon: 'success',
+              title: 'Success send request!',
               showConfirmButton: false,
               timer: 1500,
             });
           })
           .catch((err) => {
-            console.log(err, "errrr");
+            console.log(err, 'errrr');
             Swal.fire({
-              icon: "error",
-              title: "Oops...",
+              icon: 'error',
+              title: 'Oops...',
               text: err.response.data.message,
             });
           })
@@ -116,11 +116,11 @@ export default function DetailMagnets() {
   };
 
   const gambarBanner = [
-    "https://lovelytab.com/wp-content/uploads/2019/01/Tumblr-Aesthetic-Wallpapers-Free-1024x576.jpg",
-    "https://studywithme.io/aesthetic-pomodoro-timer/8c50f8e334f43eee3272.jpg",
-    "https://www.dictionary.com/e/wp-content/uploads/2019/07/Aesthetic_1000x700.jpg",
-    "https://www.thespruce.com/thmb/DOr4WekPF1gxbfxKlE4Jw7jgv04=/420x0/filters:no_upscale():max_bytes(150000):strip_icc()/herzenstimmebedroom-0dbee000e5bf4f74b95a75078da74c76-3b0681f9eaf642e2b6b55e26cf897a97.jpg",
-    "https://i.pinimg.com/736x/73/55/a0/7355a06b3c04bb8c006a0746d0ee74bd.jpg",
+    'https://lovelytab.com/wp-content/uploads/2019/01/Tumblr-Aesthetic-Wallpapers-Free-1024x576.jpg',
+    'https://studywithme.io/aesthetic-pomodoro-timer/8c50f8e334f43eee3272.jpg',
+    'https://www.dictionary.com/e/wp-content/uploads/2019/07/Aesthetic_1000x700.jpg',
+    'https://www.thespruce.com/thmb/DOr4WekPF1gxbfxKlE4Jw7jgv04=/420x0/filters:no_upscale():max_bytes(150000):strip_icc()/herzenstimmebedroom-0dbee000e5bf4f74b95a75078da74c76-3b0681f9eaf642e2b6b55e26cf897a97.jpg',
+    'https://i.pinimg.com/736x/73/55/a0/7355a06b3c04bb8c006a0746d0ee74bd.jpg',
   ];
 
   useEffect(() => {
@@ -130,14 +130,25 @@ export default function DetailMagnets() {
 
   const inviteUser = (e) => {
     e.preventDefault();
-    console.log(selectedUser, "<<<<<<<<<<<<<<");
+    console.log(selectedUser, '<<<<<<<<<<<<<<');
   };
 
+  const checkAccessToken = (e) => {
+    e.preventDefault();
+    if (!localStorage.getItem('access_token')) {
+      navigate('/login');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You need Login First!',
+      });
+    }
+  };
   const joinVideoCall = async () => {
     const channel = `Magnet${magnetDetail.id}`;
-    localStorage.setItem("channelName", channel);
+    localStorage.setItem('channelName', channel);
     await dispatch(createToken({ channel }));
-    navigate("/video-call");
+    navigate('/video-call');
   };
 
   // console.log(magnetDetail, "ajsdjpasdjapsdjpasdj")
@@ -164,29 +175,29 @@ export default function DetailMagnets() {
             </div>
             <div className="container">
               <div className="row  justify-content-center">
-                <div className="col-md-12  p-0" style={{ height: "300px" }}>
+                <div className="col-md-12  p-0" style={{ height: '300px' }}>
                   <img
                     src={magnetDetail.Event.image}
                     alt=""
                     className="img-fill card-img-top h-100 p-0"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
                 <div
                   style={{
-                    width: "50%",
-                    height: "200px",
-                    position: "absolute",
-                    margin: "200px 0px",
+                    width: '50%',
+                    height: '200px',
+                    position: 'absolute',
+                    margin: '200px 0px',
                   }}
                 >
                   <div className="row d-flex justify-content-center">
                     <div className="col-md-6 h-100 d-flex justify-content-center">
                       <div
                         style={{
-                          width: "200px",
-                          height: "200px",
-                          position: "center",
+                          width: '200px',
+                          height: '200px',
+                          position: 'center',
                         }}
                       >
                         <img
@@ -198,21 +209,19 @@ export default function DetailMagnets() {
                       <div
                         className="col-md-6  text-light d-flex justify-content-center align-items-center w-100 mx-4"
                         style={{
-                          borderRadius: "0 0 20px 20px",
-                          opacity: "95%",
-                          height: "100px",
-                          marginTop: "100px",
-                          backgroundColor: "#23496D",
+                          borderRadius: '0 0 20px 20px',
+                          opacity: '95%',
+                          height: '100px',
+                          marginTop: '100px',
+                          backgroundColor: '#23496D',
                         }}
                       >
                         {/* {magnetDetail.specialRequirement} */}
                         <div className="row">
                           <div className="col-12  h-100 d-flex">
                             <h3 className="display-6">
-                            
-                                {magnetDetail.User.firstName}{" "}
-                                {magnetDetail.User.lastName}
-                              
+                              {magnetDetail.User.firstName}{' '}
+                              {magnetDetail.User.lastName}
                             </h3>
                           </div>
                         </div>
@@ -220,12 +229,12 @@ export default function DetailMagnets() {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-12" style={{ height: "150px" }}></div>
+                <div className="col-md-12" style={{ height: '150px' }}></div>
               </div>
 
               <div className="row d-flex justify-content-center">
                 <div className="col-12  d-flex justify-content-center p-0">
-                  <div className="row g-5" style={{ width: "100%" }}>
+                  <div className="row g-5" style={{ width: '100%' }}>
                     <div className="col-md-8">
                       <div className="mt-0">
                         <img
@@ -236,7 +245,7 @@ export default function DetailMagnets() {
                       </div>
                       <h1
                         className="w-100 text-white py-4"
-                        style={{ backgroundColor: "#2E5274" }}
+                        style={{ backgroundColor: '#2E5274' }}
                       >
                         Description
                       </h1>
@@ -285,7 +294,7 @@ export default function DetailMagnets() {
                       )}
                     </div>
                     <div className="col-md-4">
-                      <div className="position-sticky" style={{ top: "2rem" }}>
+                      <div className="position-sticky" style={{ top: '2rem' }}>
                         <div className="p-4 mb-3 rounded">
                           {magnetDetail.vacantParticipant !== 0 && (
                             <div className="mb-5 border rounded mt-2">
@@ -321,24 +330,29 @@ export default function DetailMagnets() {
                           <p className="mb-0">
                             <h4 className="mb-4">Total Participant :</h4>
                             <div
-                              style={{ padding: 15, borderRadius: "5px" }}
+                              style={{ padding: 15, borderRadius: '5px' }}
                               className="bg-warning"
                             >
-                              <strong style={{ fontSize: "24px" }}>
-                                {magnetDetail.vacantParticipant} /{" "}
+                              <strong style={{ fontSize: '24px' }}>
+                                {magnetDetail.vacantParticipant} /{' '}
                                 {magnetDetail.participant}
                               </strong>
                             </div>
                           </p>
                           <div>
                             <button
+                              onClick={checkAccessToken}
                               type="button"
                               className="btn btn-primary my-2  w-100"
                               data-bs-toggle="modal"
-                              data-bs-target="#exampleModal"
-                              style={{ padding: 15, borderRadius: "5px" }}
+                              data-bs-target={
+                                !localStorage.getItem('access_token')
+                                  ? ''
+                                  : '#exampleModal'
+                              }
+                              style={{ padding: 15, borderRadius: '5px' }}
                             >
-                              request to join
+                              Request to Join
                             </button>
                           </div>
                           {magnetDetail.UserId === loggedUser.id && (

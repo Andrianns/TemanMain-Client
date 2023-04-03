@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { logged_user } from './actionType';
 import { loadingSet } from './events';
+import Swal from 'sweetalert2';
 const baseUrl = 'https://temanmain-orchestrator-production.up.railway.app';
 
 export const loginUser = function (userData) {
@@ -10,8 +11,11 @@ export const loginUser = function (userData) {
       method: 'POST',
       data: userData,
     }).then((data) => {
-      // console.log(data, 'hasilLogin');
+      console.log(data, 'hasilLogin');
       localStorage.setItem('access_token', data.data.access_token);
+      localStorage.setItem('name', data.data.name);
+      localStorage.setItem('profilePict', data.data.profilePict);
+      Swal.fire('Success Login', data.data.message, 'success');
     });
   };
 };
@@ -63,10 +67,6 @@ export const editMyProfile = function (data) {
 export const addUser = function (userData) {
   return function (dispatch) {
     dispatch(loadingSet(true));
-    return axios.post(`${baseUrl}/users`, userData, {
-      headers: {
-        access_token: localStorage.access_token,
-      },
-    });
+    return axios.post(`${baseUrl}/users/public/register`, userData);
   };
 };

@@ -1,48 +1,44 @@
-import { Link, useNavigate } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
-import { CgProfile, CgLogIn, CgLogOut } from "react-icons/cg";
-import { SiGnuprivacyguard } from "react-icons/si";
-import { VscInfo } from "react-icons/vsc";
-import { useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
+import { CgProfile, CgLogIn, CgLogOut } from 'react-icons/cg';
+import { SiGnuprivacyguard } from 'react-icons/si';
+import { VscInfo } from 'react-icons/vsc';
+import { useEffect } from 'react';
 
 export default function NavBar() {
-  
   const navigate = useNavigate();
   const logout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate('/login');
   };
 
   const styleA = {
-    width: "100%",
-    position: "fixed",
-    transition: "0.3s ease-in-out",
+    width: '100%',
+    position: 'fixed',
+    transition: '0.3s ease-in-out',
   };
 
   const styleB = {
-    width: "100%",
-    position: "fixed",
-    transition: "0.3s ease-in-out",
-    "background-color": "#fff",
-    "box-shadow": "5px -1px 12px -5px grey",
-    height: "80px",
+    width: '100%',
+    position: 'fixed',
+    transition: '0.3s ease-in-out',
+    'background-color': '#fff',
+    'box-shadow': '5px -1px 12px -5px grey',
+    height: '80px',
   };
 
-  const styleNav = {}
+  const styleNav = {};
 
   useEffect(() => {
     const { pageYOffset } = window;
-    if (pageYOffset > 10) console.log("holla");
+    if (pageYOffset > 10) console.log('holla');
   }, [window.pageYOffset]);
   return (
     <header>
       <div className="container-fluid  mb-5">
         <div className="row">
           <div className="col-12 d-flex justify-content-center">
-            <nav
-              class="px-3 py-0 fixed-top navbar-expand-lg"
-              style={styleB}
-            >
+            <nav class="px-3 py-0 fixed-top navbar-expand-lg" style={styleB}>
               <div class="container navbar d-flex ">
                 <div class="d-flex justify-content-end">
                   <div>
@@ -60,14 +56,14 @@ export default function NavBar() {
                       <img
                         className="h-100 rounded"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          marginRight: "15px",
+                          width: '50px',
+                          height: '50px',
+                          marginRight: '15px',
                         }}
                         src="https://media.discordapp.net/attachments/1015235714780246077/1018164300520628315/fixlogo.jpg?width=480&height=480"
                         alt=""
                       />
-                      <a style={{ fontSize: "24px" }}>TemanMain</a>
+                      <a style={{ fontSize: '24px' }}>TemanMain</a>
                     </a>
                   </div>
                   <div style={{ padding: 10, marginLeft: 100 }}>
@@ -87,7 +83,7 @@ export default function NavBar() {
                 <div
                   // className="collapse navbar-collapse d-flex justify-content-end"
                   // id="navbarSupportedContent"
-                  style={{ float: "buttom", flexGrow: 0 }}
+                  style={{ float: 'buttom', flexGrow: 0 }}
                   className="collapse navbar-collapse"
                   id="navbarsExample03"
                 >
@@ -104,7 +100,7 @@ export default function NavBar() {
                         Home
                       </Link>
                     </li>
-                    {localStorage.getItem("access_token") && (
+                    {localStorage.getItem('access_token') && (
                       <li className="nav-item">
                         <Link to="/profile" class="nav-link text-dark">
                           <svg
@@ -118,7 +114,7 @@ export default function NavBar() {
                         </Link>
                       </li>
                     )}
-                    {localStorage.getItem("access_token") && (
+                    {localStorage.getItem('access_token') && (
                       <li className="nav-item">
                         <Link to="/my-page" class="nav-link text-dark">
                           <svg
@@ -144,7 +140,7 @@ export default function NavBar() {
                         About
                       </a>
                     </li>
-                    {!localStorage.getItem("access_token") && (
+                    {!localStorage.getItem('access_token') && (
                       <li className="nav-item">
                         <Link to="/login" class="nav-link text-dark">
                           <svg
@@ -158,19 +154,22 @@ export default function NavBar() {
                         </Link>
                       </li>
                     )}
-                    <li className="nav-item">
-                      <Link to="/register" class="nav-link text-dark">
-                        <svg
-                          className="bi d-block mx-auto mb-1"
-                          width="24"
-                          height="24"
-                        >
-                          <SiGnuprivacyguard />
-                        </svg>
-                        Register
-                      </Link>
-                    </li>
-                    {localStorage.getItem("access_token") && (
+                    {!localStorage.getItem('access_token') && (
+                      <li className="nav-item">
+                        <Link to="/register" class="nav-link text-dark">
+                          <svg
+                            className="bi d-block mx-auto mb-1"
+                            width="24"
+                            height="24"
+                          >
+                            <SiGnuprivacyguard />
+                          </svg>
+                          Register
+                        </Link>
+                      </li>
+                    )}
+
+                    {localStorage.getItem('access_token') && (
                       <li className="nav-item" onClick={logout}>
                         <a class="nav-link text-dark">
                           <svg

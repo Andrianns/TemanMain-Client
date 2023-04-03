@@ -33,6 +33,7 @@ function LoginPage() {
       })
       .then((data) => {
         navigate('/');
+        // console.log(data,"<userSubmit");
       })
       .catch((error) => {
         console.log(error);
