@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { loadingSet } from './events';
-const baseUrl = 'https://teman-main-orchestrator.vercel.app/';
+const baseUrl = 'https://teman-main-orchestrator.vercel.app';
 
 export const addRequest = function (data) {
   return function (dispatch) {

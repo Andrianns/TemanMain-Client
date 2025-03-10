@@ -3,7 +3,7 @@ import { fetch_magnets, detail_magnet, token_agora } from './actionType';
 import { fetchEvent, loadingSet } from './events';
 const Swal = require('sweetalert2');
 
-const baseUrl = 'https://teman-main-orchestrator.vercel.app/';
+const baseUrl = 'https://teman-main-orchestrator.vercel.app';
 
 export const getMagnets = function (payload) {
   return {

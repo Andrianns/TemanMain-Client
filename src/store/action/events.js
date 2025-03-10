@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { fetch_detail, fetch_event, loading_set } from './actionType';
 
-const baseUrl = 'https://teman-main-orchestrator.vercel.app/';
+const baseUrl = 'https://teman-main-orchestrator.vercel.app';
 
 // const baseUrl = 'http://localhost:4000';
 // https://temanmain-orchestrator-production.up.railway.app/events

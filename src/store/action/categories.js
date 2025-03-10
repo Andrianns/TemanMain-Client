@@ -2,7 +2,7 @@ import axios from 'axios';
 import { fetch_category } from './actionType';
 import { loadingSet } from './events';
 
-const baseUrl = 'https://teman-main-orchestrator.vercel.app/';
+const baseUrl = 'https://teman-main-orchestrator.vercel.app';
 
 export const getCategory = function (payload) {
   return {
