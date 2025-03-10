@@ -2,7 +2,7 @@ import axios from 'axios';
 import { logged_user } from './actionType';
 import { loadingSet } from './events';
 import Swal from 'sweetalert2';
-const baseUrl = 'https://temanmain-orchestrator-production.up.railway.app';
+const baseUrl = 'https://teman-main-orchestrator.vercel.app/';
 
 export const loginUser = function (userData) {
   return function (dispatch) {
